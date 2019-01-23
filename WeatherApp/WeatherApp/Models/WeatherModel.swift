@@ -8,18 +8,18 @@
 
 import Foundation
 
-final class Weather {
+final class FavoriteImageHelper {
     private static let fileName = "WeatherApp.plist"
-    private static var weather = [Period]()
+    private static var favoritesImage = [Favorite]()
     
-    static func getWeatherData() -> [Period] {
+    static func getWeatherData() {
         //File Manager
         let path = DataPersistenceManager.filePathToDocumentsDirectory(filename: fileName).path
         if FileManager.default.fileExists(atPath: path) {
             if let data = FileManager.default.contents(atPath: path) {
                 do {
-                    let response = try PropertyListDecoder().decode(WeatherModel.self, from: data)
-                    
+                    let response = try PropertyListDecoder().decode([Favorite].self, from: data)
+                    self.favoritesImage = response
                 } catch {
                      print("property list decoding error: \(error)")
                 }
@@ -30,11 +30,11 @@ final class Weather {
         } else {
             print("\(fileName) does not exist")
         }
-       return weather
+   
     }
     
-    static func addPhoto(photo: Period) {
-        weather.append(photo)
+    static func addPhoto(photo: Favorite) {
+        favoritesImage.append(photo)
         savePhoto()
         
     }
@@ -42,7 +42,7 @@ final class Weather {
     static func savePhoto() {
         let path = DataPersistenceManager.filePathToDocumentsDirectory(filename: fileName)
         do {
-            let data = try PropertyListEncoder().encode(weather)
+            let data = try PropertyListEncoder().encode(favoritesImage)
             try data.write(to: path, options: Data.WritingOptions.atomic)
         } catch {
             print("property list encoding error: \(error)")

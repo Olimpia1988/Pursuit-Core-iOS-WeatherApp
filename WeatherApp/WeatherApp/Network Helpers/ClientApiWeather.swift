@@ -24,6 +24,7 @@ final class ClientApiWeather {
                             if let data = data {
                                do {
                                     let weather = try JSONDecoder().decode(WeatherModel.self, from: data)
+                                guard weather.response.count > 0 else { return }
                                     completionHandler(nil , weather.response)
                                     } catch {
                                     completionHandler(AppError.decodingError(error), nil)
@@ -31,6 +32,28 @@ final class ClientApiWeather {
                             }
                         }
                     }
+
+    static func getImage(keyword: String, completionHandler: @escaping (AppError?, [Image]?) -> Void ) {
+        NetworkHelper.shared.performDataTask(endpointURLString: keyword, httpMethod: "GET", httpBody: nil) { (appError, data, httpResponse) in
+            if let appError = appError {
+                completionHandler(appError, nil)
+            }
+            guard let response = httpResponse,
+                (200...299).contains(response.statusCode) else {
+                    let statusCode = httpResponse?.statusCode ?? -999
+                    completionHandler(AppError.badStatusCode(String(statusCode)), nil)
+                    return
+            }
+            if let data = data {
+                do {
+                    let images = try JSONDecoder().decode(ImageModel.self, from: data)
+                    completionHandler(nil, images.hits)
+                } catch {
+                    completionHandler(AppError.decodingError(error), nil)
+                }
+            }
+        }
+    }
 
             
       }

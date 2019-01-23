@@ -10,7 +10,14 @@ import UIKit
 
 class DetailedViewController: UIViewController {
      var currentPhoto: WeatherModel?
-   public var currentWeatherData: Period!
+    var cityName: String!
+    var cityNameFormatted: String {
+        return cityName.replacingOccurrences(of: " ", with: "+")
+    }
+    
+    public var currentWeatherData: Period!
+    public var currentImage: Image!
+    public var arrayOfImages = [Image]()
     public var imageIndex: Int?
     @IBOutlet weak var weatherTitle: UILabel!
     @IBOutlet weak var cityImage: UIImageView!
@@ -33,18 +40,31 @@ class DetailedViewController: UIViewController {
 //        sunset.text = currentWeatherData.sunsetTime
         windspread.text = ("Windspeed: \(currentWeatherData.windSpeedKPH) kph")
         inchesOfrain.text = ("Inches of presipitation: \(currentWeatherData.pressureIN) in")
+        ClientApiWeather.getImage(keyword: "https://pixabay.com/api/?key=11378362-f50c827058ab2657804265f54&q=\(cityNameFormatted)&image_type=photo") { (appError, image) in
+            if let appError = appError {
+                print(appError.errorMessage())
+            } else if let image = image {
+              self.arrayOfImages = image
+            }
+            guard self.arrayOfImages.count > 0 else { return }
+            let randomImage = self.arrayOfImages[Int.random(in: 0..<self.arrayOfImages.count - 1)]
+            ImageHelper.shared.fetchImage(urlString: randomImage.largeImageURL, completionHandler: { (appError, image) in
+                if let appError = appError {
+                    print(appError.errorMessage())
+                } else if let image = image {
+                    self.cityImage.image = image
+        }
         
-    }
+    })
     
 
    
-    @IBAction func favoritesAddButton(_ sender: UIBarButtonItem) {
-        guard let image = cityImage.image else { return }
-        if let imageData = image.jpegData(compressionQuality: 0.5) {
-            if let imageIndex = imageIndex, let currentPhoto = currentPhoto {
-            
-            }
-        }
-    }
-    
+  //  @IBAction func favoritesAddButton(_ sender: UIBarButtonItem) {
+//        UIAlertAction.init(title: "Saved", style: UIAlertAction) { (<#UIAlertAction#>) in
+//            <#code#>
+//        }
+//    }
+//
+}
+}
 }

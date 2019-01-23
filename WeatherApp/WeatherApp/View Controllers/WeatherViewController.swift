@@ -20,6 +20,7 @@ class WeatherViewController: UIViewController {
     }
     @IBOutlet weak var zipCodeInput: UITextField!
     @IBOutlet weak var weatherTitle: UILabel!
+    public var cityNameData = ""
     @IBOutlet weak var myCollectionView: UICollectionView!
     
     override func viewDidLoad() {
@@ -29,18 +30,26 @@ class WeatherViewController: UIViewController {
         print("Data or not data")
         toGetData()
         dump(toGetData())
+        ZipCodeHelper.getLocationName(from: zipCodeInput.text ?? "11106") { (error, cityName) in
+            if let error = error {
+                print(error)
+            } else if let cityName = cityName {
+                self.weatherTitle.text = "Weather cast for \(cityName)"
+                self.cityNameData = cityName
+            }
+        }
         
     }
     
 
     private func toGetData() {
-        ClientApiWeather.getWeather(keyword: "11106") { (appError, data) in
+        ClientApiWeather.getWeather(keyword: zipCodeInput.text ?? "11106" ) { (appError, data) in
             if let appError = appError {
                 print(appError.errorMessage())
             } else if let data = data {
             let response = data
                 self.weatherInstance = response[response.count - 1].periods
-                //dump(self.weatherInstance)
+          
             }
         }
     }
@@ -51,6 +60,7 @@ class WeatherViewController: UIViewController {
             let cell = sender as! UICollectionViewCell
             let indexPaths = self.myCollectionView.indexPath(for: cell)
             detailedVC.currentWeatherData = weatherInstance[indexPaths!.row]
+            detailedVC.cityName = cityNameData
         }
   
     }
