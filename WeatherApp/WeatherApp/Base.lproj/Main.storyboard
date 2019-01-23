@@ -115,9 +115,9 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RZr-Ni-Hns">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" borderStyle="roundedRect" placeholder="e.g 11106" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RZr-Ni-Hns">
                                 <rect key="frame" x="22" y="426.66666666666669" width="370" height="30"/>
-                                <color key="backgroundColor" red="0.86467138119999998" green="0.93849667950000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <attributedString key="attributedText"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
@@ -143,6 +143,7 @@
                     <navigationItem key="navigationItem" title="Search" id="GeK-Oh-aKi"/>
                     <connections>
                         <outlet property="myCollectionView" destination="wSR-wI-ZWB" id="BdM-Jg-Mmf"/>
+                        <outlet property="textZipCode" destination="19T-yf-F6D" id="Ane-ET-HVw"/>
                         <outlet property="weatherTitle" destination="2fm-ow-Dn2" id="w7a-wN-afu"/>
                         <outlet property="zipCodeInput" destination="RZr-Ni-Hns" id="5VA-ye-brV"/>
                     </connections>

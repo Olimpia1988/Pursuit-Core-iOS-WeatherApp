@@ -18,6 +18,8 @@ class WeatherViewController: UIViewController {
           
         }
     }
+    
+    @IBOutlet weak var textZipCode: UILabel!
     @IBOutlet weak var zipCodeInput: UITextField!
     @IBOutlet weak var weatherTitle: UILabel!
     public var cityNameData = ""
@@ -27,7 +29,7 @@ class WeatherViewController: UIViewController {
         super.viewDidLoad()
         myCollectionView.dataSource = self
         myCollectionView.delegate = self
-        print("Data or not data")
+        zipCodeInput.delegate = self
         toGetData()
         dump(toGetData())
         ZipCodeHelper.getLocationName(from: zipCodeInput.text ?? "11106") { (error, cityName) in
@@ -43,7 +45,7 @@ class WeatherViewController: UIViewController {
     
 
     private func toGetData() {
-        ClientApiWeather.getWeather(keyword: zipCodeInput.text ?? "11106" ) { (appError, data) in
+        ClientApiWeather.getWeather(keyword: "11106" ) { (appError, data) in
             if let appError = appError {
                 print(appError.errorMessage())
             } else if let data = data {
@@ -91,4 +93,31 @@ extension WeatherViewController: UICollectionViewDelegateFlowLayout {
         return CGSize.init(width: myCollectionView.bounds.width, height: myCollectionView.bounds.height)
     }
     
+}
+
+extension WeatherViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        guard let textfield = textField.text else {
+            return false
+        }
+        guard textfield.count == 5 else {
+            self.textZipCode.text = "Please enter valid Zip Code"
+            return false
+        }
+        ZipCodeHelper.getLocationName(from: textfield) { (error, cityName) in
+            if let error = error {
+                print("error: \(error)")
+            } else if let cityName = cityName {
+                self.cityNameData = cityName
+                self.weatherTitle.text = "Weather cast for \(cityName)"
+                self.cityNameData = cityName
+            }
+        }
+        guard Int(textfield) != nil else {
+            self.textZipCode.text = "Please enter valid Zip Code"
+            return false
+        }
+        toGetData()
+        return true
+    }
 }
