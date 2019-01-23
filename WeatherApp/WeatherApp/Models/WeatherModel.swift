@@ -12,7 +12,7 @@ final class FavoriteImageHelper {
     private static let fileName = "WeatherApp.plist"
     private static var favoritesImage = [Favorite]()
     
-    static func getWeatherData() {
+    static func getSavedImageData() {
         //File Manager
         let path = DataPersistenceManager.filePathToDocumentsDirectory(filename: fileName).path
         if FileManager.default.fileExists(atPath: path) {

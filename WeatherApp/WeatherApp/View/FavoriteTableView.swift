@@ -11,5 +11,6 @@ import UIKit
 class FavoriteTableView: UITableViewCell {
 
    
-
+    @IBOutlet weak var favoriteImage: UIImageView!
+    
 }

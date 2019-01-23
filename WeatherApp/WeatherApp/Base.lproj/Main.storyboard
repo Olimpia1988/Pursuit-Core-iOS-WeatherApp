@@ -286,7 +286,7 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="769"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="741" id="znf-cZ-JTL">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="FavoriteCell" rowHeight="741" id="znf-cZ-JTL" customClass="FavoriteTableView" customModule="WeatherApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="741"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="znf-cZ-JTL" id="aKh-OF-hJd">
@@ -304,6 +304,9 @@
                                                 <constraint firstAttribute="bottomMargin" secondItem="sJo-YJ-vxE" secondAttribute="bottom" id="ylb-jk-UYb"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="favoriteImage" destination="sJo-YJ-vxE" id="jgp-Sq-uIT"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -318,6 +321,9 @@
                         <viewLayoutGuide key="safeArea" id="kdO-FT-amd"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Favorites" image="CLOUD" id="Mgj-2Q-2MR"/>
+                    <connections>
+                        <outlet property="favoritesTableView" destination="RLf-3e-yB6" id="rO4-iO-Nze"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="240-Zd-tsc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
