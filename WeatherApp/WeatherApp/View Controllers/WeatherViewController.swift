@@ -41,6 +41,7 @@ class WeatherViewController: UIViewController {
             }
         }
         
+         print(DataPersistenceManager.filePathToDocumentsDirectory(filename: "WeatherApp.plist"))
     }
     
 

@@ -59,12 +59,34 @@ class DetailedViewController: UIViewController {
     
 
    
-  //  @IBAction func favoritesAddButton(_ sender: UIBarButtonItem) {
-//        UIAlertAction.init(title: "Saved", style: UIAlertAction) { (<#UIAlertAction#>) in
-//            <#code#>
-//        }
-//    }
-//
+
 }
 }
+    
+    @IBAction func Favorites(_ sender: UIBarButtonItem) {
+        let date = Date()
+        let isoDateFormatter = ISO8601DateFormatter()
+        isoDateFormatter.formatOptions = [.withFullDate,
+                                          .withFullTime,
+                                          .withInternetDateTime,
+                                          .withTimeZone,
+                                          .withDashSeparatorInDate]
+        
+        
+        let timeStamp = isoDateFormatter.string(from: date)
+        //if selectedImage != nil {
+        if let imageData = cityImage.image?.jpegData(compressionQuality: 0.5) {
+            let photo = Favorite.init(imageData: imageData, createdAt: timeStamp, description: "")
+            FavoriteImageHelper.addPhoto(photo: photo)
+        }
+        //}
+        let alert = UIAlertController(title: "Saved", message: "Your message has been saved to favorite", preferredStyle: .alert)
+        let ok = UIAlertAction(title: "OK", style: .default){
+            _ in
+            self.dismiss(animated: true, completion: nil)
+        }
+        alert.addAction(ok)
+        present(alert, animated: true, completion: nil)
+    }
+    
 }

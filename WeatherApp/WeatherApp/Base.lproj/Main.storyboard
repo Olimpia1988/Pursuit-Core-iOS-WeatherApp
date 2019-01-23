@@ -218,7 +218,7 @@
                                 </constraints>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="0.73737150430679321" green="0.80860871076583862" blue="0.93689650297164917" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="bFS-Ym-XGn" firstAttribute="top" secondItem="kPa-Eh-2Dx" secondAttribute="bottom" constant="11" id="5lu-cg-PS8"/>
                             <constraint firstItem="Tdw-76-lDW" firstAttribute="trailing" secondItem="vuP-ze-Nmf" secondAttribute="trailing" id="9L3-iw-Lgj"/>
@@ -254,7 +254,7 @@
                     <navigationItem key="navigationItem" id="94h-E7-DU9">
                         <barButtonItem key="rightBarButtonItem" title="Favorite" id="QBg-Cg-kxw">
                             <connections>
-                                <action selector="favoritesAddButton:" destination="cXd-jP-0eu" id="B4I-OH-td7"/>
+                                <action selector="Favorites:" destination="cXd-jP-0eu" id="KLb-mO-X9R"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
