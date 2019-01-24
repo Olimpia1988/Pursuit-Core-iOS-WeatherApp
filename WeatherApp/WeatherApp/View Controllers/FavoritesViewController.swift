@@ -31,8 +31,9 @@ extension FavoritesViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "FavoriteCell", for: indexPath) as? FavoriteTableView else { return UITableViewCell() }
-        
         return cell
+        let faveImageToSet = favoriteImages[indexPath.row]
+        cell.favoriteImage.image = 
     }
     
     

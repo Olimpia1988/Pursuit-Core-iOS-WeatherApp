@@ -34,10 +34,9 @@ class DetailedViewController: UIViewController {
         weatherTitle.text = "Weather forecast of \(currentWeatherData.dateFormattedString)"
         weatherDescription.text = currentWeatherData.weather
         high.text = ("High: \(currentWeatherData.maxTempC) *C")
-        
-//        low.text = ("Low: \(currentWeatherData)! *C")
+        low.text = ("Low: \(String(describing: currentWeatherData))! *C")
         sunrise.text = currentWeatherData.sunriseFormattedString
-//        sunset.text = currentWeatherData.sunsetTime
+        sunset.text = "Sunset time: \(currentWeatherData.sunsetTime)"
         windspread.text = ("Windspeed: \(currentWeatherData.windSpeedKPH) kph")
         inchesOfrain.text = ("Inches of presipitation: \(currentWeatherData.pressureIN) in")
         ClientApiWeather.getImage(keyword: "https://pixabay.com/api/?key=11378362-f50c827058ab2657804265f54&q=\(cityNameFormatted)&image_type=photo") { (appError, image) in
@@ -60,7 +59,7 @@ class DetailedViewController: UIViewController {
 
    
 
-}
+  }
 }
     
     @IBAction func Favorites(_ sender: UIBarButtonItem) {
@@ -74,13 +73,12 @@ class DetailedViewController: UIViewController {
         
         
         let timeStamp = isoDateFormatter.string(from: date)
-        //if selectedImage != nil {
         if let imageData = cityImage.image?.jpegData(compressionQuality: 0.5) {
             let photo = Favorite.init(imageData: imageData, createdAt: timeStamp, description: "")
             FavoriteImageHelper.addPhoto(photo: photo)
         }
-        //}
-        let alert = UIAlertController(title: "Saved", message: "Your message has been saved to favorite", preferredStyle: .alert)
+
+        let alert = UIAlertController(title: "Saved", message: "Your image has been saved", preferredStyle: .alert)
         let ok = UIAlertAction(title: "OK", style: .default){
             _ in
             self.dismiss(animated: true, completion: nil)
